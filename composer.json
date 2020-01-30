@@ -72,6 +72,7 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ],
-        "stan": "php -d memory_limit=500M ./vendor/bin/phpstan analyse -l 3 -c phpstan.neon src app config resources tests"
+        "stan": "php -d memory_limit=500M ./vendor/bin/phpstan analyse -l 3 -c phpstan.neon src app config resources tests",
+        "unit": "./vendor/bin/phpunit"
     }
 }

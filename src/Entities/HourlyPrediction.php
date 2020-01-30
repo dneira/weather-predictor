@@ -3,6 +3,8 @@
 
 namespace WeatherPredictor\Entities;
 
+use Illuminate\Http\JsonResponse;
+use WeatherPredictor\Exceptions\InvalidHourException;
 
 class HourlyPrediction
 {
@@ -23,11 +25,14 @@ class HourlyPrediction
      * HourlyPrediction constructor.
      * @param int $hour
      * @param float $value
+     * @throws InvalidHourException
      */
     public function __construct(int $hour, float $value)
     {
         $this->hour = $hour;
         $this->value = $value;
+
+        $this->assertValid();
     }
 
     /**
@@ -68,6 +73,14 @@ class HourlyPrediction
     public function setForecast(Forecast $forecast): void
     {
         $this->forecast = $forecast;
+    }
+
+    private function assertValid() : void
+    {
+        $hour = $this->getHour();
+        if ($hour < 0 || $hour > 23) {
+            throw new InvalidHourException('The hour given is invalid. Must be in the range [0-23]', JsonResponse::HTTP_BAD_REQUEST);
+        }
     }
 
 }

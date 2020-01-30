@@ -1,5 +1,6 @@
 parameters:
     reportUnmatchedIgnoredErrors: false
+    inferPrivatePropertyTypeFromConstructor: true
     ignoreErrors:
         - '#Access to undefined constant App\\Doctrine\\Repositories\\DoctrineBasicRepository::CLASS_NAME\.#'
 
@@ -9,6 +10,7 @@ parameters:
         - app/Http/Controllers/Auth/RegisterController.php
         - app/Http/Middleware/Authenticate.php
         - app/Providers/BroadcastServiceProvider.php
+        - tests/Unit/WeatherPartnersTest.php
 includes:
         - vendor/phpstan/phpstan-phpunit/extension.neon
         - vendor/phpstan/phpstan-phpunit/rules.neon
