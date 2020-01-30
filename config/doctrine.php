@@ -23,17 +23,19 @@ return [
     'managers'                   => [
         'default' => [
             'dev'           => env('APP_DEBUG', false),
-            'meta'          => env('DOCTRINE_METADATA', 'annotations'),
+            'meta'          => 'fluent',
             'connection'    => env('DB_CONNECTION', 'mysql'),
             'namespaces'    => [],
-            'paths'         => [
-                base_path('app/Entities')
-            ],
+            'paths'         => [],
             'repository'    => Doctrine\ORM\EntityRepository::class,
             'proxies'       => [
                 'namespace'     => false,
                 'path'          => storage_path('proxies'),
                 'auto_generate' => env('DOCTRINE_PROXY_AUTOGENERATE', false)
+            ],
+            'mappings' => [
+                App\Doctrine\Mappings\ForecastMapping::class,
+                App\Doctrine\Mappings\HourlyPredictionMapping::class,
             ],
             /*
             |--------------------------------------------------------------------------
@@ -89,7 +91,7 @@ return [
     */
     'extensions'                 => [
         //LaravelDoctrine\ORM\Extensions\TablePrefix\TablePrefixExtension::class,
-        //LaravelDoctrine\Extensions\Timestamps\TimestampableExtension::class,
+        LaravelDoctrine\Extensions\Timestamps\TimestampableExtension::class,
         //LaravelDoctrine\Extensions\SoftDeletes\SoftDeleteableExtension::class,
         //LaravelDoctrine\Extensions\Sluggable\SluggableExtension::class,
         //LaravelDoctrine\Extensions\Sortable\SortableExtension::class,

@@ -1,0 +1,14 @@
+parameters:
+    reportUnmatchedIgnoredErrors: false
+    ignoreErrors:
+        - '#Access to undefined constant App\\Doctrine\\Repositories\\DoctrineBasicRepository::CLASS_NAME\.#'
+
+    bootstrap: vendor/autoload.php
+    excludes_analyse:
+        - app/Exceptions/Handler.php
+        - app/Http/Controllers/Auth/RegisterController.php
+        - app/Http/Middleware/Authenticate.php
+        - app/Providers/BroadcastServiceProvider.php
+includes:
+        - vendor/phpstan/phpstan-phpunit/extension.neon
+        - vendor/phpstan/phpstan-phpunit/rules.neon

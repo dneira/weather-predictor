@@ -54,8 +54,19 @@ services:
     networks:
       - app-network
 
+  #Redis Service
+  redis:
+    image: redis:alpine
+    container_name: redis_db
+    command: redis-server --appendonly yes
+    ports:
+      - 6379:6379
+    volumes:
+      - ./data:/data
+    restart: always
+
 #Docker Networks
-networks:<>
+networks:
   app-network:
     driver: bridge
 #Volumes
