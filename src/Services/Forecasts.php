@@ -208,7 +208,7 @@ class Forecasts
      * @param string $key
      * @param mixed $data
      */
-    public function addToCache(string $key, $data) : void {
+    private function addToCache(string $key, $data) : void {
         $cacheExpiration = config('predictor.cacheExpirationInSeconds');
         Cache::put($key, $data, $cacheExpiration);
     }

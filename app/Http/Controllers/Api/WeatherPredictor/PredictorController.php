@@ -55,17 +55,17 @@ class PredictorController extends Controller
             return new JsonResponse([
                 'statusCode' => $e->getCode(),
                 'message' => $e->getMessage(),
-            ]);
+            ], $e->getCode());
         } catch (InvalidDateException $e) {
             return new JsonResponse([
                 'statusCode' => $e->getCode(),
                 'message' => $e->getMessage(),
-            ]);
+            ], $e->getCode());
         } catch (\Exception $e) {
             return new JsonResponse([
                 'statusCode' => $e->getCode(),
                 'message' => $e->getMessage(),
-            ]);
+            ], $e->getCode());
         }
     }
 
@@ -80,9 +80,10 @@ class PredictorController extends Controller
             throw new InvalidDateException('The date given is invalid, please be sure is in the format YYYY-MM-DD', JsonResponse::HTTP_BAD_REQUEST);
         }
 
+        $dayRange = config('predictor.rangeOfDays');
         $carbonDate = $date ? Carbon::createFromFormat('Y-m-d', $date) : Carbon::now();
         $dateFloor = Carbon::now();
-        $dateTop = Carbon::now()->addDays(10);
+        $dateTop = Carbon::now()->addDays($dayRange);
 
         if (!$carbonDate->isBetween($dateFloor->startOfDay(), $dateTop->endOfDay())) {
             throw new InvalidDateException('The date given is out of the forecast range.', JsonResponse::HTTP_BAD_REQUEST);

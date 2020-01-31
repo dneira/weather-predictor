@@ -1,72 +1,163 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+# Weather Predictor Application
 
-## About Laravel
+This application provides a service for get the forecast from different weather partners and calculate a magic forecast from the partners data.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The application is developed using the Laravel Framework and usign docker-compose for easily create a development environment.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Class Diagram
+![Class Diagram](WeatherPredictor.png)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ER Diagram
+![ER Diagram](ER.png)
 
-## Learning Laravel
+##Installation Instructions
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+You need a environment with the requirements for use the Laravel Framework v5.8 and also needs
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+The requirements are the following:
 
-## Laravel Sponsors
+* PHP >= 7.1.3
+* BCMath PHP Extension
+* Ctype PHP Extension
+* JSON PHP Extension
+* Mbstring PHP Extension
+* OpenSSL PHP Extension
+* PDO PHP Extension
+* Tokenizer PHP Extension
+* XML PHP Extension
+* Composer dependency manager
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
+The next step is cloning the repository to your local from the remote repository:
 
-## Contributing
+```sh 
+$ git clone https://github.com/dneira/weather-predictor.git
+``` 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Install the composer dependencies:
 
-## Security Vulnerabilities
+```sh 
+$ composer install
+``` 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Now you need to create the `env` file and modify this file with your own credentials and configuration:
 
-## License
+```sh 
+$ cp .env.example .env
+``` 
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+We need to change some permissions for the storage folder:
+
+```sh 
+$ chmod 775 storage/ -R
+``` 
+
+
+Let's create the database schema using the doctrine schema update command with `artisan`
+
+```sh 
+$ php artisan doctrine:schema:update
+``` 
+
+Now we are ready to use our application.
+
+##Docker
+
+We have a  ``docker-compose`` file for use the application easily with docker containers.
+
+Just running the following command the docker containers will be downloaded, created and started for use our application with this service.
+
+We need to change some permissions for the storage folder:
+
+```sh 
+$ docker-compose up -d
+``` 
+
+Please check the ```docker-compose.yml``` file to review the service containers and configuration.
+
+## WeatherPrediction API
+
+We have and enpoint that receive 3 parameters ```city``` ``scale`` and ``date``. The date is optional if you dont pass the parameter to the API the date will be the current date.
+
+Examples: 
+
+* `/api/predictor/{city}/{scale}/` predicts the forecast of today in the given temperature scale.
+* `/api/predictor/{city}/{scale}/{date}` predicts the forecast of the given date in the given temperature scale.
+
+##API Parameters
+
+| Parameter | Type | Example | Notes |
+| --------- | ---- | ------- | ----- |
+| ``city``  | string | *Amsterdam* | Case Insensitive|
+| ``scale`  | string | *Celsius* | Case Insensitive, Examples: ``celsius``, ``fahrenheit``|
+| ``day``  | string, YYYY-mm-dd | 2020-01-31 | Optional. The predictor only allow dates from today to 10 days (Configurable, review ``config/predictor.php``) |
+
+##API Response
+
+The API returns the data in the JSON format because is the most human readable format and common in the API development.
+
+Response Example:
+
+Example response:
+```
+{
+    "statusCode": 200,
+    "day": "2018-01-12",
+    "outputScale": "Farenheit",
+    "outputScaleSymbol": "°F",
+    "city": "amsterdam",
+    "forecast": [
+        {
+            "hour": 0,
+            "value": 37.666666666666664
+        },
+        {
+            "hour": 1,
+            "value": 38
+        },
+        {
+            "hour": 2,
+            "value": 36.86666666666667
+        },
+        {
+            "hour": 3,
+            "value": 36
+        },
+        {
+            "hour": 4,
+            "value": 37.6
+        },
+        {
+            "hour": 5,
+            "value": 34.666666666666664
+        },
+        {
+            "hour": 6,
+            "value": 47
+        },
+        {
+            "hour": 7,
+            "value": 28.666666666666668
+        },
+        {
+            "hour": 8,
+            "value": 30.866666666666664
+        },
+        {
+            "hour": 9,
+            "value": 31.733333333333334
+        },
+        {
+            "hour": 10,
+            "value": 32.93333333333333
+        }
+    ]
+}
+```
+##Credits
+Made with coffee and love by [Didier Neira](http://github.com/dneira)
+
+
+
+

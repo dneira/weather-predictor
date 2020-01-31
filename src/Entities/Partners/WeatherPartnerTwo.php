@@ -31,6 +31,7 @@ class WeatherPartnerTwo implements WeatherPartnerContract
         $predictions = $dataPredictions->predictions;
 
         $dayForecastData = [];
+        /** @var TemperatureScaleContract $scale */
         $scale = TemperatureFactory::getTemperatureFromName($predictions->{'-scale'});
         $city = $predictions->city;
         $date = Carbon::createFromFormat('Ymd', $predictions->date);
@@ -41,6 +42,7 @@ class WeatherPartnerTwo implements WeatherPartnerContract
             $dayForecastData[] = new HourlyPrediction($hour, $dataPrediction->value);
         }
 
+        /** @var Forecast $forecast */
         $forecast = new Forecast($city, $scale, class_basename($this), $date, $dayForecastData);
 
         return $forecast;
