@@ -11,7 +11,7 @@ The application is developed using the Laravel Framework and usign docker-compos
 ## ER Diagram
 ![ER Diagram](ER.png)
 
-##Installation Instructions
+## Installation Instructions
 
 You need a environment with the requirements for use the Laravel Framework v5.8 and also needs
 
@@ -62,7 +62,7 @@ $ php artisan doctrine:schema:update
 
 Now we are ready to use our application.
 
-##Docker
+## Docker
 
 We have a  ``docker-compose`` file for use the application easily with docker containers.
 
@@ -85,7 +85,7 @@ Examples:
 * `/api/predictor/{city}/{scale}/` predicts the forecast of today in the given temperature scale.
 * `/api/predictor/{city}/{scale}/{date}` predicts the forecast of the given date in the given temperature scale.
 
-##API Parameters
+## API Parameters
 
 | Parameter | Type | Example | Notes |
 | --------- | ---- | ------- | ----- |
@@ -93,7 +93,7 @@ Examples:
 | ``scale`  | string | *Celsius* | Case Insensitive, Examples: ``celsius``, ``fahrenheit``|
 | ``day``  | string, YYYY-mm-dd | 2020-01-31 | Optional. The predictor only allow dates from today to 10 days (Configurable, review ``config/predictor.php``) |
 
-##API Response
+## API Response
 
 The API returns the data in the JSON format because is the most human readable format and common in the API development.
 
@@ -155,7 +155,8 @@ Example response:
     ]
 }
 ```
-##Credits
+
+## Credits
 Made with coffee and love by [Didier Neira](http://github.com/dneira)
 
 
