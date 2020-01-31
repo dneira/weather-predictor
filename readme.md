@@ -47,10 +47,11 @@ Now you need to create the `env` file and modify this file with your own credent
 $ cp .env.example .env
 ``` 
 
-We need to change some permissions for the storage folder:
+We need to change some permissions:
 
 ```sh 
 $ chmod 775 storage/ -R
+$ chmod 775 bootstrap/ -R
 ``` 
 
 
@@ -73,6 +74,11 @@ We need to change some permissions for the storage folder:
 ```sh 
 $ docker-compose up -d
 ``` 
+Now we can open the application bash and follow the installation steps normally:
+
+```sh 
+$ docker exec -ti weather_predictor_app bash 
+``` 
 
 Please check the ```docker-compose.yml``` file to review the service containers and configuration.
 
@@ -89,8 +95,8 @@ Examples:
 
 | Parameter | Type | Example | Notes |
 | --------- | ---- | ------- | ----- |
-| ``city``  | string | *Amsterdam* | Case Insensitive|
-| ``scale`  | string | *Celsius* | Case Insensitive, Examples: ``celsius``, ``fahrenheit``|
+| ``city``  | string | Amsterdam | Case Insensitive|
+| ``scale`  | string | Celsius | Case Insensitive, Examples: ``celsius``, ``fahrenheit``|
 | ``day``  | string, YYYY-mm-dd | 2020-01-31 | Optional. The predictor only allow dates from today to 10 days (Configurable, review ``config/predictor.php``) |
 
 ## API Response
